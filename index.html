@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Majinboof x Juice Archive</title>
+    <style>
+        /* Minimalist "Vault" Aesthetic */
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Helvetica', Arial, sans-serif;
+            margin: 0;
+            padding: 60px 20px;
+        }
+
+        header {
+            max-width: 1100px;
+            margin: 0 auto 60px auto;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 0;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px; /* Tight gaps for a cleaner look */
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .art-card {
+            background: #000;
+            border: 1px solid #222; /* Very subtle border */
+            transition: border-color 0.2s ease;
+        }
+
+        /* Basic hover: just brightens the border, no glow */
+        .art-card:hover {
+            border-color: #ffffff;
+        }
+
+        .art-card img {
+            width: 100%;
+            display: block;
+            filter: grayscale(100%); /* Optional: makes the whole site B&W until hover */
+            transition: filter 0.3s ease;
+        }
+
+        .art-card:hover img {
+            filter: grayscale(0%);
+        }
+
+        .info {
+            padding: 15px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            background: #000;
+        }
+
+        .song-title { color: #fff; }
+        .type { color: #555; }
+
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #444;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Majinboof / Archive</h1>
+    </header>
+
+    <div class="gallery">
+        
+        <div class="art-card">
+            <img src="artwork/image1.jpg" alt="Art">
+            <div class="info">
+                <span class="song-title">Cigarettes</span>
+                <span class="type">Artwork</span>
+            </div>
+        </div>
+        <div class="art-card">
+            <img src="artwork/image2.jpg" alt="Art">
+            <div class="info">
+                <span class="song-title">Rental</span>
+                <span class="type">Artwork</span>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        999 • ARCHIVE BY JOHNBALL589
+    </footer>
+
+</body>
+</html>
