@@ -33,13 +33,17 @@
                 data.forEach(item => {
                     const card = document.createElement('a');
                     card.className = 'art-card';
-                    const params = new URLSearchParams({
-                        title: item.title,
-                        file: item.filename,
-                        status: item.status,
-                        desc: item.description 
+                    
+                    const rawData = JSON.stringify({
+                        t: item.title,
+                        f: item.filename,
+                        s: item.status,
+                        d: item.description
                     });
-                    card.href = `art.html?${params.toString()}`;
+                    
+                    const code = btoa(unescape(encodeURIComponent(rawData)));
+                    card.href = `art.html?v=${code}`;
+                    
                     card.innerHTML = `
                         <img src="./artwork/${item.filename}">
                         <div class="info">
