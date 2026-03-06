@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archive</title>
+    <title>Majinboof Archive</title>
     <style>
         body {
             background-color: #000;
@@ -58,12 +58,24 @@
             font-size: 1.5rem;
             letter-spacing: 5px;
         }
+        footer {
+            margin-top: 60px;
+            border-top: 1px solid #222;
+            padding-top: 20px;
+            text-align: center;
+        }
+        .disclaimer {
+            font-size: 10px;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
 
     <header id="header">
-        <h1>Archive</h1>
+        <h1>Majinboof / Archive / 999</h1>
     </header>
 
     <div id="gallery"></div>
@@ -72,9 +84,14 @@
         <div class="error-code" id="error-message">ERROR_CODE: 0x000</div>
     </div>
 
+    <footer id="footer">
+        <div class="disclaimer">This site is not owned by or affiliated with Majinboof.</div>
+    </footer>
+
     <script>
         const gallery = document.getElementById('gallery');
         const header = document.getElementById('header');
+        const footer = document.getElementById('footer');
         const errorContainer = document.getElementById('error-container');
         const errorMessage = document.getElementById('error-message');
 
@@ -102,6 +119,7 @@
             .catch(err => {
                 gallery.style.display = 'none';
                 header.style.display = 'none';
+                footer.style.display = 'none';
                 errorContainer.style.display = 'block';
                 errorMessage.innerText = `ERROR_CODE: ${err.message}`;
             });
