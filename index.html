@@ -34,12 +34,13 @@
                     const card = document.createElement('a');
                     card.className = 'art-card';
                     
+                    // The Encoder must match your JSON keys exactly
                     const rawData = JSON.stringify({
                         t: item.title,
                         f: item.filename,
                         s: item.status,
                         d: item.description,
-                        rd: item.release_date,
+                        rd: item.release_date, 
                         sd: item.surface_date
                     });
                     
