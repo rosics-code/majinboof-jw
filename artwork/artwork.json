@@ -3,12 +3,16 @@
     "title": "Goodbye & Good Riddance",
     "filename": "gbgr.png",
     "status": "Official",
-    "description": "Original cover art for Juice WRLD debut album. Created by Majinboof."
+    "description": "Original cover art for Juice WRLD debut album. Created by Majinboof.",
+    "release_date": "May 23, 2018",
+    "surface_date": "N/A"
   },
   {
     "title": "Rental",
     "filename": "rental.png",
     "status": "Unreleased",
-    "description": "Visual concept for the track Rental. High-contrast sketchy style."
+    "description": "Visual concept for the track Rental. High-contrast sketchy style.",
+    "release_date": "N/A",
+    "surface_date": "Mid-to-late 2020"
   }
 ]
