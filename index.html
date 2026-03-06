@@ -5,109 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Majinboof x Juice Archive</title>
     <style>
-        /* Minimalist "Vault" Aesthetic */
         body {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: #000;
+            color: #fff;
             font-family: 'Helvetica', Arial, sans-serif;
             margin: 0;
-            padding: 60px 20px;
+            padding: 40px;
         }
 
         header {
-            max-width: 1100px;
-            margin: 0 auto 60px auto;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #222;
             padding-bottom: 20px;
+            margin-bottom: 40px;
         }
 
-        h1 {
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin: 0;
-        }
+        h1 { font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        .gallery {
+        #gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px; /* Tight gaps for a cleaner look */
-            max-width: 1100px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
 
         .art-card {
+            border: 1px solid #1a1a1a;
             background: #000;
-            border: 1px solid #222; /* Very subtle border */
-            transition: border-color 0.2s ease;
-        }
-
-        /* Basic hover: just brightens the border, no glow */
-        .art-card:hover {
-            border-color: #ffffff;
         }
 
         .art-card img {
             width: 100%;
             display: block;
-            filter: grayscale(100%); /* Optional: makes the whole site B&W until hover */
-            transition: filter 0.3s ease;
-        }
-
-        .art-card:hover img {
-            filter: grayscale(0%);
+            border-bottom: 1px solid #1a1a1a;
         }
 
         .info {
             padding: 15px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 12px;
             display: flex;
             justify-content: space-between;
-            background: #000;
+            text-transform: uppercase;
+            color: #888;
         }
 
-        .song-title { color: #fff; }
-        .type { color: #555; }
-
-        footer {
-            margin-top: 80px;
-            text-align: center;
-            font-size: 0.7rem;
-            color: #444;
-            letter-spacing: 2px;
-        }
+        .title { color: #fff; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Majinboof / Archive</h1>
+        <h1>Majinboof / Archive / 999</h1>
     </header>
 
-    <div class="gallery">
-        
-        <div class="art-card">
-            <img src="artwork/image1.jpg" alt="Art">
-            <div class="info">
-                <span class="song-title">Cigarettes</span>
-                <span class="type">Artwork</span>
-            </div>
-        </div>
-        <div class="art-card">
-            <img src="artwork/image2.jpg" alt="Art">
-            <div class="info">
-                <span class="song-title">Rental</span>
-                <span class="type">Artwork</span>
-            </div>
+    <div id="gallery">
         </div>
 
-    </div>
-
-    <footer>
-        999 • ARCHIVE BY JOHNBALL589
-    </footer>
+    <script>
+        // Fetch the JSON from the artwork folder
+        fetch('artwork/artwork.json')
+            .then(response => response.json())
+            .then(data => {
+                const gallery = document.getElementById('gallery');
+                
+                data.forEach(item => {
+                    // This is your template
+                    const card = `
+                        <div class="art-card">
+                            <img src="artwork/${item.filename}" alt="${item.title}">
+                            <div class="info">
+                                <span class="title">${item.title}</span>
+                                <span class="status">${item.status}</span>
+                            </div>
+                        </div>
+                    `;
+                    gallery.innerHTML += card;
+                });
+            })
+            .catch(err => console.error("Check your JSON file path!", err));
+    </script>
 
 </body>
 </html>
