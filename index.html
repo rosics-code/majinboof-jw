@@ -32,7 +32,7 @@
             background: #000;
             text-decoration: none;
             display: block;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s ease;
         }
         .art-card:hover {
             border-color: #fff;
@@ -44,7 +44,7 @@
         }
         .info {
             padding: 15px;
-            font-size: 12px;
+            font-size: 11px;
             display: flex;
             justify-content: space-between;
             text-transform: uppercase;
@@ -61,8 +61,8 @@
         }
         .error-code {
             color: #ff0000;
-            font-size: 1.5rem;
-            letter-spacing: 5px;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
         }
         footer {
             margin-top: 60px;
@@ -132,7 +132,13 @@
                     data.forEach(item => {
                         const card = document.createElement('a');
                         card.className = 'art-card';
-                        card.href = `art.html?title=${encodeURIComponent(item.title)}&file=${encodeURIComponent(item.filename)}&status=${encodeURIComponent(item.status)}`;
+                        const params = new URLSearchParams({
+                            title: item.title,
+                            file: item.filename,
+                            status: item.status,
+                            desc: item.description
+                        });
+                        card.href = `art.html?${params.toString()}`;
                         card.innerHTML = `
                             <img src="./artwork/${item.filename}" alt="${item.title}">
                             <div class="info">
