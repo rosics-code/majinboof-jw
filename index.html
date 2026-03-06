@@ -112,7 +112,7 @@
             });
         };
 
-        fetch('artwork/artwork.json')
+        fetch('./artwork/artwork.json')
             .then(response => {
                 if (!response.ok) throw new Error(`HTTP_${response.status}`);
                 return response.json();
@@ -120,7 +120,7 @@
             .then(async data => {
                 try {
                     for (const item of data) {
-                        const path = `artwork/${item.filename}`;
+                        const path = `./artwork/${item.filename}`;
                         await validateImage(path);
                     }
 
@@ -128,7 +128,7 @@
                         const card = document.createElement('div');
                         card.className = 'art-card';
                         card.innerHTML = `
-                            <img src="artwork/${item.filename}" alt="${item.title}">
+                            <img src="./artwork/${item.filename}" alt="${item.title}">
                             <div class="info">
                                 <span class="title">${item.title}</span>
                                 <span class="status">${item.status}</span>
@@ -137,7 +137,7 @@
                         gallery.appendChild(card);
                     });
                 } catch (e) {
-                    triggerError('MISSING_ASSETS');
+                    triggerError('ASSET_MISSING_IN_FOLDER');
                 }
             })
             .catch(err => {
