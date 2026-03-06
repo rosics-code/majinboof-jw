@@ -14,13 +14,13 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 40px;
         }
         .container {
             display: flex;
             width: 100%;
             max-width: 1100px;
-            gap: 60px;
+            gap: 80px;
             align-items: flex-start;
         }
         .left {
@@ -36,9 +36,9 @@
             padding-top: 20px;
         }
         h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             text-transform: uppercase;
-            margin: 0 0 10px 0;
+            margin: 0 0 15px 0;
             letter-spacing: -1px;
         }
         .status-tag {
@@ -50,10 +50,10 @@
             display: block;
         }
         .description {
-            color: #555;
-            line-height: 1.6;
-            font-size: 0.9rem;
-            margin-bottom: 40px;
+            color: #777;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-bottom: 50px;
         }
         .back-btn {
             display: inline-block;
@@ -62,12 +62,14 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             border: 1px solid #333;
-            padding: 12px 24px;
+            padding: 14px 28px;
             letter-spacing: 1px;
-            transition: border-color 0.2s;
+            transition: all 0.2s ease;
         }
         .back-btn:hover {
             border-color: #fff;
+            background-color: #fff;
+            color: #000;
         }
         #error-view {
             display: none;
@@ -79,11 +81,14 @@
             letter-spacing: 5px;
             margin-bottom: 20px;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .container {
                 flex-direction: column;
-                gap: 30px;
+                gap: 40px;
+                align-items: center;
+                text-align: center;
             }
+            .right { padding-top: 0; }
         }
     </style>
 </head>
@@ -96,7 +101,7 @@
         <div class="right">
             <span class="status-tag" id="art-status"></span>
             <h1 id="art-title"></h1>
-            <p class="description">Majinboof x Juice WRLD Official Archive Entry. Part of the 999 visual legacy.</p>
+            <p class="description" id="art-desc"></p>
             <a href="index.html" class="back-btn">Return to Archive</a>
         </div>
     </div>
@@ -111,10 +116,12 @@
         const title = params.get('title');
         const file = params.get('file');
         const status = params.get('status');
+        const desc = params.get('desc');
 
-        if (title && file && status) {
+        if (title && file && status && desc) {
             document.getElementById('art-title').innerText = title;
             document.getElementById('art-status').innerText = status;
+            document.getElementById('art-desc').innerText = desc;
             document.getElementById('art-image').src = `./artwork/${file}`;
             document.title = `${title} | Archive`;
         } else {
