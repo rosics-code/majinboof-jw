@@ -5,157 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Majinboof Archive</title>
     <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Helvetica', Arial, sans-serif;
-            margin: 0;
-            padding: 40px;
-        }
-        header {
-            border-bottom: 1px solid #222;
-            padding-bottom: 20px;
-            margin-bottom: 40px;
-        }
-        h1 {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        #gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        .art-card {
-            border: 1px solid #1a1a1a;
-            background: #000;
-            text-decoration: none;
-            display: block;
-            transition: border-color 0.2s ease;
-        }
-        .art-card:hover {
-            border-color: #fff;
-        }
-        .art-card img {
-            width: 100%;
-            display: block;
-            border-bottom: 1px solid #1a1a1a;
-        }
-        .info {
-            padding: 15px;
-            font-size: 11px;
-            display: flex;
-            justify-content: space-between;
-            text-transform: uppercase;
-            color: #888;
-        }
-        .title {
-            color: #fff;
-            font-weight: bold;
-        }
-        #error-container {
-            display: none;
-            text-align: center;
-            margin-top: 100px;
-        }
-        .error-code {
-            color: #ff0000;
-            font-size: 1.2rem;
-            letter-spacing: 4px;
-        }
-        footer {
-            margin-top: 60px;
-            border-top: 1px solid #222;
-            padding-top: 20px;
-            text-align: center;
-        }
-        .disclaimer {
-            font-size: 10px;
-            color: #444;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        body { background-color: #000; color: #fff; font-family: Helvetica, Arial, sans-serif; margin: 0; padding: 40px; }
+        header { border-bottom: 1px solid #222; padding-bottom: 20px; margin-bottom: 40px; }
+        h1 { font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
+        #gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .art-card { border: 1px solid #1a1a1a; background: #000; text-decoration: none; display: block; transition: border-color 0.2s; }
+        .art-card:hover { border-color: #fff; }
+        .art-card img { width: 100%; display: block; border-bottom: 1px solid #1a1a1a; }
+        .info { padding: 15px; font-size: 11px; display: flex; justify-content: space-between; text-transform: uppercase; color: #888; }
+        .title { color: #fff; font-weight: bold; }
+        #error-container { display: none; text-align: center; margin-top: 100px; color: #ff0000; letter-spacing: 4px; }
+        footer { margin-top: 60px; border-top: 1px solid #222; padding-top: 20px; text-align: center; }
+        .disclaimer { font-size: 10px; color: #444; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body>
-
-    <header id="header">
-        <h1>Majinboof / Archive / 999</h1>
-    </header>
-
+    <header><h1>Majinboof / Archive / 999</h1></header>
     <div id="gallery"></div>
-
-    <div id="error-container">
-        <div class="error-code" id="error-message">ERROR_CODE: 0x000</div>
-    </div>
-
-    <footer id="footer">
-        <div class="disclaimer">This site is not owned by or affiliated with Majinboof.</div>
-    </footer>
+    <div id="error-container">ERROR_CODE: ASSET_FAILURE</div>
+    <footer><div class="disclaimer">This site is not owned by or affiliated with Majinboof.</div></footer>
 
     <script>
-        const gallery = document.getElementById('gallery');
-        const header = document.getElementById('header');
-        const footer = document.getElementById('footer');
-        const errorContainer = document.getElementById('error-container');
-        const errorMessage = document.getElementById('error-message');
-
-        const triggerError = (code) => {
-            gallery.style.display = 'none';
-            header.style.display = 'none';
-            footer.style.display = 'none';
-            errorContainer.style.display = 'block';
-            errorMessage.innerText = `ERROR_CODE: ${code}`;
-        };
-
-        const validateImage = (src) => {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => resolve();
-                img.onerror = () => reject();
-                img.src = src;
-            });
-        };
-
         fetch('./artwork/artwork.json')
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP_${response.status}`);
-                return response.json();
-            })
-            .then(async data => {
-                try {
-                    for (const item of data) {
-                        await validateImage(`./artwork/${item.filename}`);
-                    }
-
-                    data.forEach(item => {
-                        const card = document.createElement('a');
-                        card.className = 'art-card';
-                        const params = new URLSearchParams({
-                            title: item.title,
-                            file: item.filename,
-                            status: item.status,
-                            desc: item.description
-                        });
-                        card.href = `art.html?${params.toString()}`;
-                        card.innerHTML = `
-                            <img src="./artwork/${item.filename}" alt="${item.title}">
-                            <div class="info">
-                                <span class="title">${item.title}</span>
-                                <span class="status">${item.status}</span>
-                            </div>
-                        `;
-                        gallery.appendChild(card);
+            .then(res => res.json())
+            .then(data => {
+                const gallery = document.getElementById('gallery');
+                data.forEach(item => {
+                    const card = document.createElement('a');
+                    card.className = 'art-card';
+                    const params = new URLSearchParams({
+                        title: item.title,
+                        file: item.filename,
+                        status: item.status,
+                        desc: item.description 
                     });
-                } catch (e) {
-                    triggerError('ASSET_MISSING_IN_FOLDER');
-                }
+                    card.href = `art.html?${params.toString()}`;
+                    card.innerHTML = `
+                        <img src="./artwork/${item.filename}">
+                        <div class="info">
+                            <span class="title">${item.title}</span>
+                            <span>${item.status}</span>
+                        </div>
+                    `;
+                    gallery.appendChild(card);
+                });
             })
-            .catch(err => {
-                triggerError(err.message);
-            });
+            .catch(() => document.getElementById('error-container').style.display = 'block');
     </script>
-
 </body>
 </html>
