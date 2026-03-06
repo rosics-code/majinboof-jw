@@ -8,15 +8,36 @@
         body { background-color: #000; color: #fff; font-family: Helvetica, Arial, sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 40px; }
         .container { display: flex; width: 100%; max-width: 1100px; gap: 80px; align-items: flex-start; }
         .left { flex: 1.2; }
-        .left img { width: 100%; border: 1px solid #1a1a1a; }
+        .left img { width: 100%; border: 1px solid #1a1a1a; display: block; }
         .right { flex: 1; padding-top: 20px; }
         h1 { font-size: 2.2rem; text-transform: uppercase; margin: 0 0 15px 0; letter-spacing: -1px; }
         .status-tag { color: #888; letter-spacing: 2px; text-transform: uppercase; font-size: 0.7rem; margin-bottom: 15px; display: block; }
-        .description { color: #777; line-height: 1.8; font-size: 0.95rem; margin-bottom: 50px; }
+        .description { color: #777; line-height: 1.8; font-size: 0.95rem; margin-bottom: 30px; }
+        
+        /* Metadata Div */
+        .meta-box {
+            background-color: #111;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #222;
+        }
+        .meta-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .meta-item:last-child { margin-bottom: 0; }
+        .meta-label { color: #555; }
+        .meta-value { color: #bbb; }
+
         .back-btn { display: inline-block; color: #fff; text-decoration: none; font-size: 0.75rem; text-transform: uppercase; border: 1px solid #333; padding: 14px 28px; transition: 0.2s; }
         .back-btn:hover { border-color: #fff; background: #fff; color: #000; }
+        
         #error-view { display: none; text-align: center; }
-        .error-code { color: #ff0000; font-size: 1.5rem; letter-spacing: 5px; }
         @media (max-width: 900px) { .container { flex-direction: column; text-align: center; } }
     </style>
 </head>
@@ -27,12 +48,28 @@
             <span class="status-tag" id="art-status"></span>
             <h1 id="art-title"></h1>
             <p class="description" id="art-desc"></p>
+            
+            <div class="meta-box">
+                <div class="meta-item">
+                    <span class="meta-label">📅 Release Date</span>
+                    <span class="meta-value" id="release-val"></span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">📂 Surface Date</span>
+                    <span class="meta-value" id="surface-val"></span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">🎨 Format</span>
+                    <span class="meta-value">Digital Sketch</span>
+                </div>
+            </div>
+
             <a href="index.html" class="back-btn">Return to Archive</a>
         </div>
     </div>
 
     <div id="error-view">
-        <div class="error-code">ERROR_CODE: DATA_INVALID</div>
+        <h1 style="color:#ff0000">ERROR_CODE: DATA_INVALID</h1>
         <a href="index.html" class="back-btn">Return Home</a>
     </div>
 
@@ -47,6 +84,8 @@
             document.getElementById('art-title').innerText = decodedData.t;
             document.getElementById('art-status').innerText = decodedData.s;
             document.getElementById('art-desc').innerText = decodedData.d;
+            document.getElementById('release-val').innerText = decodedData.rd;
+            document.getElementById('surface-val').innerText = decodedData.sd;
             document.getElementById('art-image').src = `./artwork/${decodedData.f}`;
             document.title = `${decodedData.t} | Archive`;
         } catch (e) {
