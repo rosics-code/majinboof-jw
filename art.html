@@ -15,11 +15,13 @@
         .description { color: #777; line-height: 1.8; font-size: 0.95rem; margin-bottom: 50px; }
         .back-btn { display: inline-block; color: #fff; text-decoration: none; font-size: 0.75rem; text-transform: uppercase; border: 1px solid #333; padding: 14px 28px; transition: 0.2s; }
         .back-btn:hover { border-color: #fff; background: #fff; color: #000; }
+        #error-view { display: none; text-align: center; }
+        .error-code { color: #ff0000; font-size: 1.5rem; letter-spacing: 5px; }
         @media (max-width: 900px) { .container { flex-direction: column; text-align: center; } }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="main-view">
         <div class="left"><img id="art-image"></div>
         <div class="right">
             <span class="status-tag" id="art-status"></span>
@@ -29,12 +31,28 @@
         </div>
     </div>
 
+    <div id="error-view">
+        <div class="error-code">ERROR_CODE: DATA_INVALID</div>
+        <a href="index.html" class="back-btn">Return Home</a>
+    </div>
+
     <script>
-        const params = new URLSearchParams(window.location.search);
-        document.getElementById('art-title').innerText = params.get('title') || 'Unknown';
-        document.getElementById('art-status').innerText = params.get('status') || 'N/A';
-        document.getElementById('art-desc').innerText = params.get('desc') || 'No description available.';
-        document.getElementById('art-image').src = `./artwork/${params.get('file')}`;
+        try {
+            const params = new URLSearchParams(window.location.search);
+            const v = params.get('v');
+            if (!v) throw new Error();
+
+            const decodedData = JSON.parse(decodeURIComponent(escape(atob(v))));
+            
+            document.getElementById('art-title').innerText = decodedData.t;
+            document.getElementById('art-status').innerText = decodedData.s;
+            document.getElementById('art-desc').innerText = decodedData.d;
+            document.getElementById('art-image').src = `./artwork/${decodedData.f}`;
+            document.title = `${decodedData.t} | Archive`;
+        } catch (e) {
+            document.getElementById('main-view').style.display = 'none';
+            document.getElementById('error-view').style.display = 'block';
+        }
     </script>
 </body>
 </html>
